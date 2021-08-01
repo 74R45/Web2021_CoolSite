@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  - const text1 = lang === 'UKR' ? 'Більшість відвідувачів наших тренінгів їх не потребують, оскільки не піддаються навчанню. Але вони платеспроможні, і в цьому основна суть тренінгів.' : 'Most visitors to our trainings do not need them because they do not exposed training. But they are solvent, and this is the main essence of training.'
+  - const text2 = lang === 'UKR' ? 'Наш тренінговий центр є найкрутішим у світі!' : 'Our training center is the coolest in the world!'
+  - const text3 = lang === 'UKR' ? 'Заповніть заявку, і з Вами зв\'яжеться менеджер. Тільки спробуйте не заповнити або заповнити неправильно!' : 'Fill out the application and our manager will contact you. Don\'t you dare not fill it in or fill it in incorrectly!'
+
+  .d-flex.flex-column
+    .jumbotron.jumbotron-fluid
+      .container
+        p= text1
+    p= text2
+    p= text3

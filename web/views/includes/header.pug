@@ -1,0 +1,15 @@
+- let activeBtnAttr = {'class': 'active', 'style': 'pointer-events: none; cursor: default;'}
+
+.d-flex.flex-md-row.justify-content-between.p-3.px-md-4.mb-3.shadow-sm(style={'background-color': menuColor})
+  .d-flex.flex-md-row.align-items-center
+    h5.mb-0.mr-2.align-self-center.font-weight-bold.domain= domain
+    svg.bi.bi-chevron-compact-right(xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='#ffff' viewbox='0 0 16 16')
+      path(fill-rule='evenodd' d='M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671z')
+    nav.my-md-0.d-flex.flex-row
+      each item in menuItems
+        - let attr = item.active ? activeBtnAttr : {'href': item.href}
+        a.p-2.btn.nav-items.font-weight-bold&attributes(attr)= item.name
+  .d-flex.flex-row
+    each button in [{'href': '/en', 'lang': 'ENG'}, {'href': '/', 'lang': 'UKR'}]
+      - let attr = lang === button.lang ? activeBtnAttr : {'href': button.href}
+      a.btn.nav-items.font-weight-bold&attributes(attr)= button.lang

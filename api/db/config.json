@@ -1,0 +1,6 @@
+{
+  "host": "db",
+  "user": "root",
+  "password": "rootpassword",
+  "database": "web2021_cool_site"
+}

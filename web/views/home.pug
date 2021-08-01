@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  - const text1 = lang === 'UKR' ? 'Насолоджуйтесь послугами нашого тренінгового центру!' : 'Enjoy the services of our training center!'
+  - const text2 = lang === 'UKR' ? 'Хто не хоче насолоджуватися - Вам же гірше. Ми Вас знайдемо і доведемо і Вам особисто, і Вашим потенційним роботодавцям, що ви нічого не знаєте.' : 'Who doesn\'t want to enjoy - your loss. We will find you and prove to you and your potential employers that you know nothing.'
+
+  .d-flex.flex-column
+    img.home-img(src=`/images/${homeImg}`, alt='Home page image')
+    .d-flex.flex-column
+      h1(style={color: menuColor})= text1
+      p= text2

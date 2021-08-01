@@ -1,0 +1,43 @@
+{
+  "common": {
+    "domain": "cooltrainings.com.ua",
+    "menuColor": "#008080",
+    "homeImg": "home_img.png"
+  },
+  "ukr": {
+    "title": "Круті тренінги",
+    "menuItems": [
+      {
+        "name": "Головна",
+        "href": "/"
+      },
+      {
+        "name": "Тренінги",
+        "href": "/trainings"
+      },
+      {
+        "name": "Про нас",
+        "href": "/about"
+      }
+    ],
+    "lang": "UKR"
+  },
+  "eng": {
+    "title": "Cool trainings",
+    "menuItems": [
+      {
+        "name": "Home",
+        "href": "/en"
+      },
+      {
+        "name": "Trainings",
+        "href": "/en/trainings"
+      },
+      {
+        "name": "About us",
+        "href": "/en/about"
+      }
+    ],
+    "lang": "ENG"
+  }
+}

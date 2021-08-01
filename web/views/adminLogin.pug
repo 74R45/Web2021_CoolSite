@@ -1,0 +1,23 @@
+extends adminLayout
+
+block adminContent
+  .card
+    .card-header.d-flex.align-items-center.justify-content-center(style={'background-color': '#EBEBF2'})
+      .h3 Login
+    .card-body(style={'background-color': 'ghostwhite'})
+      form#login(method='post')
+        .input-group.mb-3
+          .input-group-prepend
+            span#loginLabel.input-group-text Логін
+          input#loginInput.form-control(name='login' type='text' placeholder='login' aria-label='Логін' aria-describedby='loginLabel')
+        .input-group.mb-3
+          .input-group-prepend
+            span#passwordLabel.input-group-text Пароль
+          input#passwordInput.form-control(name='password' type='password' placeholder='********' aria-label='Пароль' aria-describedby='passwordLabel')
+        .d-flex.px-2(style={'justify-content': 'flex-end'})
+          button.btn.btn-primary.m-1(type='submit') Увійти
+  .toast-container
+        #failToast.toast.hide(role='alert' aria-live='assertive' data-delay='2000')
+          .toast-body
+            span#failToastMessage
+  script(src='/javascripts/admin-login.js')

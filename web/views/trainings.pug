@@ -1,0 +1,48 @@
+extends layout
+
+block content
+  style.
+    .training-title {
+        color: #{menuColor};
+    }
+  script(crossorigin='' src='https://unpkg.com/react@16/umd/react.production.min.js')
+  script(crossorigin='' src='https://unpkg.com/react-dom@16/umd/react-dom.production.min.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.25.0/babel.min.js')
+  script(type='text/babel').
+    class Trainings extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {trainings: !{trainings}};
+      }
+
+      render() {
+        if (this.state.trainings) {
+          return (
+            this.state.trainings.filter(training => training.language === '!{lang}').map((training, index) => {
+              let descId = `description${index}`;
+              return (
+                <div className='card mb-2'>
+                  <div className='card-body pb-2'>
+                    <div className='card-title h1 training-title'>{training.title}</div>
+                    <p className='card-text'>{training.descShort}</p>
+                    <a class='btn btn-info mb-2' data-toggle='collapse' href={`#${descId}`}
+                      role='button' aria-expanded='false' aria-controls={descId}>
+                      !{lang === 'UKR' ? 'Детальніше...' : 'See more...'}
+                    </a>
+                    <div class='collapse' id={descId}>
+                      <div class='card card-body'>
+                        {training.descFull}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })
+          );
+        } else {
+          return <div>Loading...</div>;
+        }
+      }
+    }
+    ReactDOM.render(<Trainings/>, document.getElementById('trainingsList'));
+  #trainingsList.d-flex.flex-column

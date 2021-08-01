@@ -1,0 +1,85 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css", integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z", crossorigin="anonymous")
+    script(src='https://code.jquery.com/jquery-3.4.1.min.js')
+    script(src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js", integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV", crossorigin="anonymous")
+    script(src='/javascripts/form.js')
+    style.
+      .my-form {
+        border: 2px #{menuColor} solid;
+      }
+      .form-header {
+        background-color: #{menuColor};
+      }
+  body
+    include includes/header.pug
+    .d-flex.flex-row.m-3
+      .col-8
+        block content
+      .col-4.my-form.p-1
+        form.needs-validation(novalidate='')
+          - const formTitle = lang === 'UKR' ? 'Форма заявки' : 'Application form'
+          - const labelFirstName = lang === 'UKR' ? 'Ім\'я' : 'First name'
+          - const labelLastName = lang === 'UKR' ? 'Прізвище' : 'Last name'
+          - const labelEmail = 'E-mail'
+          - const labelPhone = lang === 'UKR' ? 'Номер телефону' : 'Phone number'
+          - const labelText = lang === 'UKR' ? 'Текст заявки' : 'Application text'
+          - const placeholderFirstName = lang === 'UKR' ? 'Петро' : 'John'
+          - const placeholderLastName = lang === 'UKR' ? 'Петренко' : 'Smith'
+          - const placeholderEmail = 'iliketrainings@example.com'
+          - const placeholderPhone = '+380981234567'
+          - const invalidFirstName = lang === 'UKR' ? 'Поле з іменем не повинне бути пустим' : 'First name cannot be empty'
+          - const invalidLastName = lang === 'UKR' ? 'Поле з прізвищем не повинне бути пустим' : 'Last name cannot be empty'
+          - const invalidEmail = lang === 'UKR' ? 'E-mail введено некоректно' : 'E-mail is invalid'
+          - const invalidPhone = lang === 'UKR' ? 'Телефон введено некоректно' : 'Phone is invalid'
+          - const invalidText = lang === 'UKR' ? 'Поле з текстом не повинне бути пустим' : 'Text field cannot be empty'
+          - const submitButton = lang === 'UKR' ? 'Подати заявку' : 'Apply'
+          - const successSent = lang === 'UKR' ? 'Заявка надіслена!' : 'Application has been sent!'
+          - const successConfirmation = lang === 'UKR' ? 'Лист підтвердження було надіслено на вашу пошту.' : 'To confirm your e-mail please check your inbox.'
+
+          .flex-row
+            .col.mb-3.p-0
+              h5.h5.form-header= formTitle
+          .flex-row
+            .col.mb-3
+              label(for='firstName')= labelFirstName
+              input#firstName.form-control(type='text' placeholder=placeholderFirstName required)
+              .invalid-feedback
+                span= invalidFirstName
+          .flex-row
+            .col.mb-3
+              label(for='lastName')= labelLastName
+              input#lastName.form-control(type='text' placeholder=placeholderLastName required)
+              .invalid-feedback
+                span= invalidLastName
+          .flex-row
+            .col.mb-3
+              label(for='email')= labelEmail
+              input#email.form-control(type='email' placeholder=placeholderEmail required)
+              .invalid-feedback
+                span= invalidEmail
+          .flex-row
+            .col.mb-3
+              label(for='phone')= labelPhone
+              input#phone.form-control(type='tel' placeholder=placeholderPhone pattern='\\+\\d{7,15}' required)
+              .invalid-feedback
+                span= invalidPhone
+          .flex-row
+            .col.mb-3
+              label(for='extraText')= labelText
+              textarea#extraText.form-control(required)
+              .invalid-feedback
+                span= invalidText
+          .flex-row
+            .col.mb-2
+              button.btn.btn-success.btn-block(type='submit')
+                span= submitButton
+      .toast-container
+        #successToast.toast.hide(role='alert' aria-live='assertive' data-delay='2000')
+          .toast-body
+            span#spanSuccessSent= successSent
+            span#spanSuccessConfirmation= successConfirmation

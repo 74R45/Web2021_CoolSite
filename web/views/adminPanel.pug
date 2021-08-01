@@ -1,0 +1,115 @@
+extends adminLayout
+
+block adminContent
+  style.
+    .nav-pills>.nav-link.active {
+        background-color: #{menuColor}
+    }
+    .nav-pills>.nav-link {
+        color: #{menuColor}
+    }
+
+  .card(style={'min-width': '90vw', 'max-width': '90vw'})
+    .card-header.justify-content-between(style={'background-color': '#EBEBF2'})
+      .nav.nav-pills(role='tablist')
+        a#navApplicationsTab.h3.nav-link.active(data-toggle='pill' href='#applications' role='tab' aria-controls='applications' aria-selected='true') Заявки
+        a#navTrainingsTab.h3.nav-link(data-toggle='pill' href='#trainings' role='tab' aria-controls='trainings' aria-selected='false') Тренінги
+        a.h3.nav-link(href='/admin/logout' style={'margin-right': '12px', 'margin-left': 'auto'}) Вийти
+    .card-body.tab-content(style={'background-color': 'ghostwhite', 'overflow-y': 'scroll'})
+      #applications.tab-pane.fade.show.active(role='tabpanel' aria-labelledby='nabApplicationsTab')
+        .d-flex.mb-3(style={'justify-content': 'flex-end'})
+          .custom-control.custom-switch
+            input#confirmationSwitch.custom-control-input(type='checkbox')
+            label.custom-control-label(for='confirmationSwitch') Надсилати заявки з верифікацією пошти
+        .table-responsive
+          table.table
+            thead
+              tr
+                th(scope='col') Ім'я
+                th(scope='col') E-mail
+                th(scope='col') Телефон
+                th(scope='col') Текст
+                th(scope='col')
+            tbody#applicationsTable
+      #trainings.tab-pane.fade(role='tabpanel' aria-labelledby='nabTrainingsTab')
+        .d-flex.mb-3(style={'justify-content': 'flex-end'})
+          button.btn.btn-success.align-content-center(type='button' data-toggle='modal' data-target='#createModal' style={'margin-right': '12px'})
+            <svg version="1.1" id="Layer_1" width="1em" height="1em" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" fill="currentColor" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+              <g><g><polygon points="289.391,222.609 289.391,0 222.609,0 222.609,222.609 0,222.609 0,289.391 222.609,289.391 222.609,512 289.391,512 289.391,289.391 512,289.391 512,222.609"/></g></g>
+            </svg>
+        .table-responsive
+          table.table
+            thead
+              tr
+                th(scope='col') Назва
+                th(scope='col') Короткий опис
+                th(scope='col') Повний опис
+                th(scope='col') Мова
+                th(scope='col')
+            tbody#trainingTable
+  // Modal create
+  #createModal.modal.fade(tabindex='-1' aria-labelledby='createModalLabel' aria-hidden='true')
+    .modal-dialog
+      .modal-content
+        .modal-header
+          h5#createModalLabel.modal-title Новий Тренінг
+        .modal-body
+          form#createTraining(method='post')
+            .input-group.mb-3
+              .input-group-prepend
+                span#trainingTitle.input-group-text Назва
+              input#createTitle.form-control(name='title' type='text' placeholder='Новий Тренінг' aria-label='Назва' aria-describedby='trainingTitle')
+            .input-group.mb-3
+              textarea#createDescShort.form-control(name='desc-short' type='text' placeholder='Короткий опис' aria-label='Короткий опис')
+            .input-group.mb-3
+              textarea#createDescFull.form-control(name='desc-full' type='text' placeholder='Повний опис' aria-label='Повний опис')
+            .input-group.mb-3
+              .input-group-prepend
+                span.input-group-text(for='createLanguage') Мова
+              select#createLanguage.custom-select(name='language' aria-label='Мова')
+                option(value='UKR' selected) Українська
+                option(value='ENG') English
+            .modal-footer
+              button.btn.btn-secondary(type='button' data-dismiss='modal') Відмінити
+              button.btn.btn-primary(type='submit') ОК
+  // Modal edit
+  #editModal.modal.fade(tabindex='-1' aria-labelledby='editModalLabel' aria-hidden='true')
+    .modal-dialog
+      .modal-content
+        .modal-header
+          h5#editModalLabel.modal-title Редагувати Тренінг
+        .modal-body
+          form#editTraining(method='post')
+            .input-group.mb-3
+              .input-group-prepend
+                span#trainingTitleEdit.input-group-text Назва
+              input#editTitle.form-control(name='title' type='text' placeholder='Новий Тренінг' aria-label='Назва' aria-describedby='trainingTitleEdit')
+              .input-group-append
+                span.input-group-text ID
+                span#editId.input-group-text 0
+            .input-group.mb-3
+              textarea#editDescShort.form-control(name='desc-short' type='text' placeholder='Короткий опис' aria-label='Короткий опис')
+            .input-group.mb-3
+              textarea#editDescFull.form-control(name='desc-full' type='text' placeholder='Повний опис' aria-label='Повний опис')
+            .input-group.mb-3
+              .input-group-prepend
+                span.input-group-text(for='editLanguage') Мова
+              select#editLanguage.custom-select(name='language' aria-label='Мова')
+                option(value='UKR' selected) Українська
+                option(value='ENG') English
+            .modal-footer
+              button.btn.btn-secondary(type='button' data-dismiss='modal') Відмінити
+              button.btn.btn-primary(type='submit') ОК
+  // Modal delete
+  #deleteModal.modal.fade(tabindex='-1' aria-labelledby='deleteModalLabel' aria-hidden='true')
+    .modal-dialog.modal-dialog-centered
+      .modal-content
+        .modal-header
+          h5#deleteModalLabel.modal-title
+        .modal-body
+          p#deleteModalText
+        .modal-footer
+          button.btn.btn-secondary(type='button' data-dismiss='modal') Ні
+          button#deleteButton.btn.btn-danger(type='button') Так
+  script(src='/javascripts/admin-trainings.js')
+  script(src='/javascripts/admin-applications.js')
